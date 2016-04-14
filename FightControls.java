@@ -27,14 +27,15 @@ public class FightControls extends Controller{
 			}
 		}
 		private class Ataque extends Event{
+		private int i=((int)3*java.lang.Math.random());
 			public Ataque(long eventTime) {
 				super(eventTime);
 			}
 			public void action(){
-				
+				return(atual.EscolheAtaque(i).action());
 			}
 			public String description(){
-				return(atual.atqs[((int)3*java.lang.Math.random())].description());
+				return(atual.EscolheAtaque(i).description());
 			}
 		}
 	}
