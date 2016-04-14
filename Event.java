@@ -28,8 +28,7 @@ class EventSet {
 			if((next == (start + 1) % events.length)&& looped)
 					return null	;
 		}while(events[next] ==null);
-		return
-				events[next];
+		return events[next];
 	}
 	public	void removeCurrent() {
 		events[next] =null;
