@@ -6,8 +6,10 @@ abstract public class Pokemon {
 	public class AtaquePokemon extends Event{
 		private int dano;
 		private String nome;
-		public AtaquePokemon(long eventTime) {
+		public AtaquePokemon(String nome, int dano,long eventTime) {
 			super(eventTime);
+			this.dano=dano;
+			this.nome=nome;
 		}
 		public void action(){
 			
