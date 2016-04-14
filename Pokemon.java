@@ -2,7 +2,10 @@
 abstract public class Pokemon {
 	private String nome;
 	private int hp;
-	private AtaquePokemon[] atqs= new AtaquePokemon[4];	
+	private AtaquePokemon[] atqs= new AtaquePokemon[4];
+	public EscolheAtaque(int i){
+		return atqs[i];
+	}
 	public class AtaquePokemon extends Event{
 		private int dano;
 		private String nome;
