@@ -9,6 +9,7 @@ abstract public class Event {
 	abstract public void action();
 	abstract public String description();
 }
+
 class EventSet {
 	private Event[] events = new Event[100];
 	private	int	index = 0;
@@ -34,6 +35,7 @@ class EventSet {
 		events[next] = null;
 	}
 }
+
 public class Controller {
 	private	EventSet es = new EventSet();
 	public void addEvent(Event c) {
