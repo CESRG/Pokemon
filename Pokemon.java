@@ -6,6 +6,16 @@ abstract public class Pokemon {
 	public AtaquePokemon EscolheAtaque(int i){
 		return atqs[i];
 	}
+	public int getHP() {
+		return hp;
+	}
+	public void recebeDano(int dmg) {
+		hp -= dmg;
+		if (hp <= 0) {
+			hp = 0;
+			System.out.println(nome + " morreu.");
+		}
+	}
 	public class AtaquePokemon extends Event{
 		private int dano;
 		private String nome;
