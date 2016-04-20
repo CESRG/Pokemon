@@ -59,6 +59,9 @@ public class FightControls extends Controller{
 				}
 			}
 		}
+		public UsarItem usaItem(long eventTime, int escolhido){
+			return(new UsarItem(long eventTime, int escolhido));
+		}
 		private class UsarItem extends Event{
 			public static final int prioridade=3;
 			private int i;
