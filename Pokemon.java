@@ -14,7 +14,6 @@ abstract public class Pokemon {
 		if (hp <= 0) {
 			hp = 0;
 			acordado=false;
-			System.out.println(nomePokemon + " foi nocauteado");
 		}
 	}
 	public boolean getState(){
