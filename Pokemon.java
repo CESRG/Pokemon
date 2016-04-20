@@ -1,6 +1,5 @@
-
 abstract public class Pokemon {
-	private String nome;
+	private String nomePokemon;
 	private int hp;
 	private AtaquePokemon[] atqs= new AtaquePokemon[4];
 	public AtaquePokemon EscolheAtaque(int i) {
@@ -13,8 +12,14 @@ abstract public class Pokemon {
 		hp -= dmg;
 		if (hp <= 0) {
 			hp = 0;
-			System.out.println(nome + " morreu.");
+			System.out.println(nomePokemon + " foi nocauteado");
 		}
+	}
+	public String getNome(){
+		return nomePokemon;
+	}
+	public void recebeCura(){
+		hp += 50; //usei um valor qualquer para a cura
 	}
 	public class AtaquePokemon extends Event {
 		private int dano;
@@ -24,11 +29,11 @@ abstract public class Pokemon {
 			this.dano=dano;
 			this.nome=nome;
 		}
-		public void action() {
-			
+		public void action(Pokemon alvo) {
+			alvo.recebeDano(dano);
 		}
 		public String description() {
-			return(Pokemon.nome + " usou " + nome + " e causou " + dano + " de dano.");
+			return(nomePokemon + " usou " + nome + " e causou " + dano + " de dano.");
 		}
 	}
 	
