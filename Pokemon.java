@@ -1,8 +1,8 @@
 abstract public class Pokemon {
 	private String nomePokemon;
 	private int hp;
-	private boolean acordado=true;
-	private AtaquePokemon[] atqs= new AtaquePokemon[4];
+	private boolean acordado = true;
+	private AtaquePokemon[] atqs = new AtaquePokemon[4];
 	public AtaquePokemon EscolheAtaque(int i) {
 		return atqs[i];
 	}
@@ -13,7 +13,7 @@ abstract public class Pokemon {
 		hp -= dmg;
 		if (hp <= 0) {
 			hp = 0;
-			acordado=false;
+			acordado = false;
 		}
 	}
 	public boolean getState(){
