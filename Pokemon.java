@@ -16,14 +16,14 @@ abstract public class Pokemon {
 			acordado = false;
 		}
 	}
-	public boolean getState(){
+	public boolean getState() {
 		return acordado;
 	}
-	public String getNome(){
+	public String getNome() {
 		return nomePokemon;
 	}
-	public void recebeCura(){
-		hp += 50; //usei um valor qualquer para a cura
+	public void recebeCura() {
+		hp += 50; //Um valor qualquer
 	}
 	public class AtaquePokemon extends Event {
 		private int dano;
@@ -40,6 +40,4 @@ abstract public class Pokemon {
 			return(nomePokemon + " usou " + nome + " e causou " + dano + " de dano.");
 		}
 	}
-	
-	
 }
