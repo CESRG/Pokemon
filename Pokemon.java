@@ -30,14 +30,14 @@ abstract public class Pokemon {
 		private String nome;
 		public AtaquePokemon(String nome, int dano,long eventTime) {
 			super(eventTime);
-			this.dano=dano;
-			this.nome=nome;
+			this.dano = dano;
+			this.nome = nome;
 		}
 		public void action(Pokemon alvo) {
 			alvo.recebeDano(dano);
 		}
 		public String description() {
-			return(nomePokemon + " usou " + nome + " e causou " + dano + " de dano.");
+			return (nomePokemon + " usou " + nome + " e causou " + dano + " de dano.");
 		}
 	}
 }
