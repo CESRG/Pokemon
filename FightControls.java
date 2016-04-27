@@ -19,6 +19,13 @@ public class FightControls extends Controller {
 		public int getIndiceAtual() {
 			return indiceAtual;
 		}
+		public int achaPokemonAcordado(){
+			for(int i = 0; i<6 ; i++){
+				if(pokemons[i].acordado){
+					return i;
+				}
+			}
+		}
 		public Pokemon getPokemon(int i) {
 			return pokemons[i];
 		}
@@ -87,21 +94,23 @@ public class FightControls extends Controller {
 		private class Ataque extends Event {
 			private int n;
 			private Treinador alvo;
+			private int indicePokemonAtacado;
 			public Ataque(long eventTime, int n, Treinador alvo) {
 				super(eventTime);
 				this.n = n;
 				this.alvo = alvo;
+				indicePokemonAtacado=alvo.getIndiceAtual();
 			}
 			public void action() {
 				atual.EscolheAtaque(n).action(alvo.getAtual());
-				if (!alvo.getAtual().getState()) {
-					(alvo.trocaPokemon(tm, (alvo.getIndiceAtual()+1))).action();
+				if (!alvo.getAtual().acordado()) {
+					(alvo.trocaPokemon(tm, (alvo.achaPokemonAcordado()).action();
 				}
 			}
 			public String description() {
 				return (atual.EscolheAtaque(n).description());
-				if (!alvo.getState()) {
-					return (atual.EscolheAtaque(n).description() + "ln" + alvo.getPokemon(alvo.getIndiceAtual() - 1).getNome()+" foi nocauteado e " + alvo.getAtual().getNome() + " o substituiu.");
+				if (!alvo.getAtual().acordado()) {
+					return (atual.EscolheAtaque(n).description() + "\n" + alvo.getPokemon(indicePokemonAtacado).getNome()+" foi nocauteado e " + alvo.getAtual().getNome() + " o substituiu.");
 				}
 			}
 		}
