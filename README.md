@@ -29,3 +29,6 @@ Não é prioridade, mas comentar o programa;
 Não é prioridade, mas expandir UsarItem() para usar itens diferentes (com heals diferentes);
 
 Mudar o README para algo que descreva o programa;
+
+
+Isso é um teste.
