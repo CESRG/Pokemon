@@ -25,6 +25,7 @@ public class FightControls extends Controller {
 					return i;
 				}
 			}
+			return(-1);
 		}
 		public Pokemon getPokemon(int i) {
 			return pokemons[i];
@@ -103,14 +104,20 @@ public class FightControls extends Controller {
 			}
 			public void action() {
 				atual.EscolheAtaque(n).action(alvo.getAtual());
-				if (!alvo.getAtual().acordado()) {
+				if (!alvo.getAtual().acordado() && alvo.achaPokemonAcordado()>=0) {
 					(alvo.trocaPokemon(tm, (alvo.achaPokemonAcordado()).action();
+				}
+				if(!alvo.getAtual().acordado() && alvo.achaPokemonAcordado()<0){
+					terminate();
 				}
 			}
 			public String description() {
 				return (atual.EscolheAtaque(n).description());
-				if (!alvo.getAtual().acordado()) {
+				if (!alvo.getAtual().acordado() && alvo.achaPokemonAcordado()>=0) {
 					return (atual.EscolheAtaque(n).description() + "\n" + alvo.getPokemon(indicePokemonAtacado).getNome()+" foi nocauteado e " + alvo.getAtual().getNome() + " o substituiu.");
+				}
+				if(!alvo.getAtual().acordado() && alvo.achaPokemonAcordado()<0){
+					return(atual.EscolheAtaque(n).description() + "\n" + "Todos os pokemons de "+ nome + " foram nocauteados e a luta acabou.");
 				}
 			}
 		}
