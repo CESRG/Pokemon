@@ -11,9 +11,9 @@ abstract public class Event {
 }
 
 class EventSet {
-	private Event[] events =new Event[100];
-	private	int index = 0;
-	private	int next = 0;
+	private Event[] events = new Event[100];
+	private	int	index = 0;
+	private	int	next = 0;
 	public void add(Event e) {
 		if (index >= events.length)
 			return;
@@ -35,8 +35,9 @@ class EventSet {
 		events[next] = null;
 	}
 }
+
 public class Controller {
-	private	EventSet es =new EventSet();
+	private	EventSet es = new EventSet();
 	public void addEvent(Event c) {
 		es.add(c);
 	}
