@@ -16,7 +16,7 @@ abstract public class Pokemon {
 			acordado = false;
 		}
 	}
-	public boolean getState() {
+	public boolean acordado() {
 		return acordado;
 	}
 	public String getNome() {
