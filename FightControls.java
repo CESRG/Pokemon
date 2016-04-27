@@ -2,14 +2,16 @@
 public class FightControls extends Controller {
 	private class Treinador {
 		private String nome;
+		private int ordemAtaque;
 		private Pokemon[] pokemons = new Pokemon[6];
 		private Pokemon atual;
 		private int indiceAtual;
-		public Treinador(Pokemon[] args, String nome) {
+		public Treinador(Pokemon[] args, String nome, int ordemAtaque) {
 			pokemons = args;
 			atual = pokemons[0];
 			indiceAtual = 0;
 			this.nome = nome;
+			this.ordemAtaque = ordemAtaque;
 		}
 		public Pokemon getAtual() {
 			return atual;
@@ -26,7 +28,7 @@ public class FightControls extends Controller {
 				super(eventTime);
 			}
 			public void action() {
-				
+				terminate();	
 			}
 			public String description() {
 				return (nome + " fugiu da luta.");
@@ -103,6 +105,12 @@ public class FightControls extends Controller {
 				}
 			}
 		}
+		
+	}
+	public void terminate(){
+		while ((e = es.getNext()) != null) {
+			es.removeCurrent();
+		}
 	}
 	private class Restart extends Event {
 		public Restart(long eventTime) {
@@ -110,10 +118,11 @@ public class FightControls extends Controller {
 		}
 		public void action() {
 			long tm = System.currentTimeMillis();
-			Treinador ash = new Treinador({new Pikachu(), new Charizard(), new Squirtle(), new Magikarp()}, "Ash");
-			Treinador trash = new Treinador({new Wombat(), new Diglet(), new Bulbasaur(), new Snorlax()}, "Trash");
+			Treinador ash = new Treinador({new Pikachu(), new Charizard(), new Squirtle(), new Magikarp()}, "Ash",1);
+			Treinador trash = new Treinador({new Wombat(), new Diglet(), new Bulbasaur(), new Snorlax()}, "Trash",2);
 			addEvent(ash.fazAtaque(tm, 1, trash);
 			addEvent();
+			organizaEventSet(tm)
 		}
 		public String description() {
 			return("Restarting system");
