@@ -30,6 +30,9 @@ public class FightControls extends Controller {
 		public Pokemon getPokemon(int i) {
 			return pokemons[i];
 		}
+		public Fugir fuga(long eventTime){
+			return( new Fugir(eventTime));
+		}
 		private class Fugir extends Event {
 			public Fugir(long eventTime) {
 				super(eventTime);
@@ -59,6 +62,7 @@ public class FightControls extends Controller {
 					atual = pokemons[i];
 					indiceAtual = i;
 				}
+				else{return};
 			}
 			public String description() {
 				if(pokemons[i].getState()) {
@@ -138,7 +142,12 @@ public class FightControls extends Controller {
 			Treinador ash = new Treinador({new Pikachu(), new Charizard(), new Squirtle(), new Magikarp()}, "Ash",1);
 			Treinador trash = new Treinador({new Wombat(), new Diglet(), new Bulbasaur(), new Snorlax()}, "Trash",2);
 			addEvent(ash.fazAtaque(tm, 1, trash);
-			addEvent();
+			addEvent(ash.usaItem(tm, 0);
+			addEvent(trash.trocaPokemon(tm, 3);
+			addEvent(trash.fazAtaque(tm, 4, ash);
+			addEvent(trash.usaItem(tm, 2);
+			addEvent(ash.fazAtaque(tm, 3, trash);
+			addEvent(trash.)
 			organizaEventSet();
 		}
 		public String description() {
