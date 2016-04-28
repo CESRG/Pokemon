@@ -1,11 +1,18 @@
 package controller;
+
 abstract public class Event {
+	
 	private long evtTime;
+	private static int priority;
+	
 	public Event(long eventTime) {
 		evtTime = eventTime;
 	}
 	public boolean ready() {
 		return System.currentTimeMillis() >= evtTime;
+	}
+	public int getPrio() {
+		return priority;
 	}
 	abstract public void action();
 	abstract public String description();
@@ -35,4 +42,19 @@ class EventSet {
 	public void removeCurrent() {
 		events[next] = null;
 	}
+	public Event getCurrent() {
+		return events[next];
+	}
+/*
+ *	 	public void exchange(){
+ *		Event aux;
+ *		aux = events[(next-1)];
+ *		events[(next-1)]= events[next];
+ *		events[next]=aux;
+ *	}
+ *	public void reset(){
+ *		next = 0;
+ *		looped = false;
+ *	}
+ */
 }

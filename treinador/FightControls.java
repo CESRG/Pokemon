@@ -9,18 +9,15 @@ public class FightControls extends Controller {
 	private class Treinador {
 	
 		private String nomeTreinador;
-		private int ordemAtaque;
 		private Pokemon[] pokemons = new Pokemon[6];
 		private Pokemon atual;
 		private int indiceAtual;
 		
-		public Treinador(Pokemon[] args, String nome, 
-						int ordemAtaque) {
+		public Treinador(Pokemon[] args, String nome) {
 			pokemons = args;
-			atual = pokemons[0];
 			indiceAtual = 0;
+			atual = pokemons[indiceAtual];
 			nomeTreinador = nome;
-			this.ordemAtaque = ordemAtaque;
 		}
 		
 		public Pokemon getAtual() {
@@ -39,9 +36,15 @@ public class FightControls extends Controller {
 		}
 		public Pokemon getPokemon(int i) {
 			return pokemons[i];
+		}		
+		private void terminate(){
+			terminateController();
 		}
 		
 		
+		public Fugir fuga(long eventTime) {
+			return new Fugir(eventTime);
+		}
 		private class Fugir extends Event {
 			
 			public static final int prioridade = 1;
@@ -60,13 +63,12 @@ public class FightControls extends Controller {
 		
 		
 		public TrocarPokemon trocaPokemon(long tm, int escolhido) {
-			return (new TrocarPokemon(tm, escolhido));
+			return new TrocarPokemon(tm, escolhido);
 		}
 		private class TrocarPokemon extends Event {
 			
 			public static final int prioridade = 2;
 			private int i;
-			
 			
 			public TrocarPokemon(long eventTime, int escolhido) {
 				super(eventTime);
@@ -75,9 +77,8 @@ public class FightControls extends Controller {
 			
 			public void action() {
 				if (pokemons[i].getAcordado()) {
-					pokemons[indiceAtual] = atual;
-					atual = pokemons[i];
 					indiceAtual = i;
+					atual = pokemons[indiceAtual];
 				}
 			}
 			public String description() {
@@ -94,7 +95,7 @@ public class FightControls extends Controller {
 		
 		
 		public UsarItem usaItem(long eventTime, int escolhido) {
-			return (new UsarItem(eventTime, escolhido));
+			return new UsarItem(eventTime, escolhido);
 		}
 		private class UsarItem extends Event {
 			
@@ -128,7 +129,7 @@ public class FightControls extends Controller {
 		
 		public Ataque fazAtaque(long eventTime, int nAtaque, 
 					 			Treinador alvo) {
-			return (new Ataque(eventTime, nAtaque, alvo));
+			return new Ataque(eventTime, nAtaque, alvo);
 		}
 		private class Ataque extends Event {
 			
@@ -143,7 +144,6 @@ public class FightControls extends Controller {
 				n = nAtaque;
 				this.alvo = alvo;
 				pokemonAlvo = alvo.getAtual();
-				ret = atual.EscolheAtaque(n).description();
 			}
 			
 			public void action() {
@@ -161,15 +161,9 @@ public class FightControls extends Controller {
 			}
 			public String description() {
 					return ret;
-				}
 			}
 		}
-		
-	public void terminate(){
-		addEvent(null); //Adiciona um evento nulo ao event set,
-						//o que causa o término de run().
 	}
-	
 	
 	private class Restart extends Event {
 		

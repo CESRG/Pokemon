@@ -15,4 +15,11 @@ public class Controller {
 			}
 		}
 	}
+	public void terminateController() {
+		Event e = es.getCurrent();
+		while (es.getNext() != null) {
+				es.removeCurrent();
+			}
+		addEvent(e);
+	}
 }
