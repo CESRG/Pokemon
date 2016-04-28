@@ -55,7 +55,7 @@ class EventSet {
 		return events[next];
 	}
 
-	public void exchange() {
+	public void troca() {
 		Event aux;
 		aux = events[(next - 1)];
 		events[(next - 1)] = events[next];

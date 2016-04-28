@@ -7,7 +7,7 @@ abstract public class Pokemon {
 	private String nomePokemon;
 	private int hp;
 	private String tipo;
-	private int tipo;
+	private int numTipo;
 	private boolean acordado = true;
 	private AtaquePokemon[] atqs = new AtaquePokemon[4];
 	private double[][] fraquezas = {

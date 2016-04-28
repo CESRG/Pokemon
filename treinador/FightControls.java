@@ -159,7 +159,7 @@ public class FightControls extends Controller {
 					int iAcordado = alvo.achaPokemonAcordado();
 					if (iAcordado >= 0) {
 						alvo.trocaPokemon(System.currentTimeMillis(), iAcordado)
-						.action();
+								.action();
 					}
 					else {
 						terminate();
@@ -181,19 +181,17 @@ public class FightControls extends Controller {
 
 		public void action() {
 			long tm = System.currentTimeMillis();
-			Treinador ash = new Treinador({new Pikachu(), 
-				new Charizard(), new Squirtle(), new Magikarp()}, 
-					"Ash",1);
-			Treinador trash = new Treinador({new Wombat(),
-				new Diglet(), new Bulbasaur(), new Snorlax()}, 
-					"Trash",2);
+			Treinador ash = new Treinador(new Pikachu(), new Charizard(),
+					new Squirtle(), new Magikarp(), "Ash", 1);
+			Treinador trash = new Treinador(new Wombat(), new Diglet(),
+					new Bulbasaur(), new Snorlax(), "Trash", 2);
 			addEvent(ash.fazAtaque(tm, 1, trash));
 			addEvent(ash.usaItem(tm, 0));
 			addEvent(trash.trocaPokemon(tm, 3));
 			addEvent(trash.fazAtaque(tm, 4, ash));
 			addEvent(trash.usaItem(tm, 2));
 			addEvent(ash.fazAtaque(tm, 3, trash));
-			organizaEventSet();	
+			organizaEventSet();
 		}
 
 		public String description() {
@@ -206,23 +204,23 @@ public class FightControls extends Controller {
 		Event aux;
 		boolean trocou = true;
 		int jogadorAtivo;
-		aux = es.getNext();
+		aux = getNext();
 		while (trocou) {
 			trocou = false;
-			while ((e = es.getNext()) != null) {
+			while ((e = getNext()) != null) {
 				jogadorAtivo = aux.getPrio() / 10;
 				if (jogadorAtivo == e.getPrio() / 10) {
 					if (aux.getPrio() > e.getPrio())
-						es.exchange();
+						trocaEvent();
 					trocou = true;
 				}
 				aux = e;
 			}
 			if (trocou) {
-				es.reset();
+				resetEvent();
 			}
 		}
-		es.reset();
+		resetEvent();
 	}
 
 	public static void main(String[] args) {

@@ -2,7 +2,11 @@ package controller;
 
 public class Controller {
 
-	protected EventSet es = new EventSet();
+	private EventSet es = new EventSet();
+
+	public Event getNext() {
+		return es.getNext();
+	}
 
 	public void addEvent(Event c) {
 		es.add(c);
@@ -25,5 +29,13 @@ public class Controller {
 			es.removeCurrent();
 		}
 		addEvent(e);
+	}
+
+	public void trocaEvent() {
+		es.troca();
+	}
+
+	public void resetEvent() {
+		es.reset();
 	}
 }
