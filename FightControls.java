@@ -119,7 +119,8 @@ public class FightControls extends Controller {
 					int iAcordado = alvo.achaPokemonAcordado();
 					if (iAcordado >= 0) {
 						alvo.trocaPokemon(System.currentTimeMillis(),
-										  iAcordado);
+										  iAcordado).action(); //necessário para que a 
+										  		       //ação ocorra imediatamente
 					}
 					else {
 						terminate();
