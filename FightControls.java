@@ -31,9 +31,9 @@ public class FightControls extends Controller {
 			return pokemons[i];
 		}
 		private class Fugir extends Event {
-			public static final int prioridade = 1;
 			public Fugir(long eventTime) {
 				super(eventTime);
+				priority=1+(ordemAtaque*10);
 			}
 			public void action() {
 				terminate();	
@@ -47,10 +47,10 @@ public class FightControls extends Controller {
 			return (new TrocarPokemon(tm, escolhido));
 		}
 		private class TrocarPokemon extends Event {
-			public static final int prioridade = 2;
 			private int i;
 			public TrocarPokemon(long eventTime, int escolhido) {
 				super(eventTime);
+				priority=2+(ordemAtaque*10);
 				i = escolhido;
 			}
 			public void action() {
@@ -73,10 +73,10 @@ public class FightControls extends Controller {
 			return (new UsarItem(long eventTime, int escolhido));
 		}
 		private class UsarItem extends Event {
-			public static final int prioridade = 3;
 			private int i;
 			public UsarItem(long eventTime, int escolhido) {
 				super(eventTime);
+				priority=3+(ordemAtaque*10);
 				i = escolhido;
 			}
 			public void action() {
@@ -98,6 +98,7 @@ public class FightControls extends Controller {
 			private int indicePokemonAtacado;
 			public Ataque(long eventTime, int n, Treinador alvo) {
 				super(eventTime);
+				priority=4+(ordemAtaque*10);
 				this.n = n;
 				this.alvo = alvo;
 				indicePokemonAtacado=alvo.getIndiceAtual();
@@ -138,11 +139,34 @@ public class FightControls extends Controller {
 			Treinador trash = new Treinador({new Wombat(), new Diglet(), new Bulbasaur(), new Snorlax()}, "Trash",2);
 			addEvent(ash.fazAtaque(tm, 1, trash);
 			addEvent();
-			organizaEventSet(tm)
+			organizaEventSet();
 		}
 		public String description() {
 			return("Restarting system");
 		}
+	}
+	public void organizaEventSet(){
+		Event e;
+		Event aux;
+		boolean trocou = true;
+		int jogadorAtivo;
+		aux = es.getNext();
+		while(trocou){	
+			trocou = false;
+			while ((e = es.getNext()) != null){
+				jogadorAtivo = (aux.getPrio())/10;
+				if((jogadorAtivo == ((e.getPrio())/10))){
+					if(aux.getPrio() > e.getPrio())
+						es.exchange()
+						trocou = true;
+				}
+				aux = e;
+			}
+			if(trocou){
+				es.reset();
+			}
+		}
+		es.reset();
 	}
 	public static void main(String[] args) {
 		FightControls fc = new FightControls();
