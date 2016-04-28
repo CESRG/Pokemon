@@ -12,12 +12,14 @@ public class FightControls extends Controller {
 		private Pokemon[] pokemons = new Pokemon[6];
 		private Pokemon atual;
 		private int indiceAtual;
+		private int ordemAtaque;
 		
-		public Treinador(Pokemon[] args, String nome) {
+		public Treinador(Pokemon[] args, String nome, int ordemAtaque) {
 			pokemons = args;
+			atual = pokemons[0];
 			indiceAtual = 0;
-			atual = pokemons[indiceAtual];
-			nomeTreinador = nome;
+			this.nome = nome;
+			this.ordemAtaque = ordemAtaque;
 		}
 		
 		public Pokemon getAtual() {
@@ -47,10 +49,9 @@ public class FightControls extends Controller {
 		}
 		private class Fugir extends Event {
 			
-			public static final int prioridade = 1;
-			
 			public Fugir(long eventTime) {
 				super(eventTime);
+				priority = 1+ (ordemAtaque * 10);
 			}
 			
 			public void action() {
@@ -67,18 +68,21 @@ public class FightControls extends Controller {
 		}
 		private class TrocarPokemon extends Event {
 			
-			public static final int prioridade = 2;
 			private int i;
 			
 			public TrocarPokemon(long eventTime, int escolhido) {
 				super(eventTime);
+				priority=2+(ordemAtaque*10);
 				i = escolhido;
 			}
 			
 			public void action() {
 				if (pokemons[i].getAcordado()) {
+					pokemons[indiceAtual] = atual; // Ã© preciso fazer assim pois os ataques sÃ£o feitos 
+									//ao atual e o dano recebido por ele nÃ£o seria 
+									//registrado de outra maneira.
+					atual = pokemons[i];
 					indiceAtual = i;
-					atual = pokemons[indiceAtual];
 				}
 			}
 			public String description() {
@@ -87,8 +91,8 @@ public class FightControls extends Controller {
 							+ atual.getNome() + " vai!");
 				}
 				else {
-					return ("Não é possível usar " +
-							"um Pokémon desmaiado!");
+					return ("NÃ£o Ã© possÃ­vel usar " +
+							"um PokÃ©mon desmaiado!");
 				}
 			}
 		}
@@ -99,7 +103,6 @@ public class FightControls extends Controller {
 		}
 		private class UsarItem extends Event {
 			
-			public static final int prioridade = 3;
 			private int i;
 			Pokemon p;
 			
@@ -107,6 +110,7 @@ public class FightControls extends Controller {
 				super(eventTime);
 				i = escolhido;
 				p = pokemons[i];
+				priority=3+(ordemAtaque*10);
 			}
 			
 			public void action() {
@@ -121,7 +125,7 @@ public class FightControls extends Controller {
 							+ " de vida agora!");
 				}
 				else {
-					return ("Não é possível curar um Pokémon desmaiado!");
+					return ("NÃ£o Ã© possÃ­vel curar um PokÃ©mon desmaiado!");
 				}
 			}
 		}
@@ -152,7 +156,8 @@ public class FightControls extends Controller {
 					int iAcordado = alvo.achaPokemonAcordado();
 					if (iAcordado >= 0) {
 						alvo.trocaPokemon(System.currentTimeMillis(),
-										  iAcordado);
+										  iAcordado).action();//necessÃ¡rio para que a 
+										  		       //aÃ§Ã£o ocorra imediatamente
 					}
 					else {
 						terminate();
@@ -172,11 +177,43 @@ public class FightControls extends Controller {
 		}
 		
 		public void action() {
-			
+			long tm = System.currentTimeMillis();
+			Treinador ash = new Treinador({new Pikachu(), new Charizard(), new Squirtle(), new Magikarp()}, "Ash",1);
+			Treinador trash = new Treinador({new Wombat(), new Diglet(), new Bulbasaur(), new Snorlax()}, "Trash",2);
+			addEvent(ash.fazAtaque(tm, 1, trash));
+			addEvent(ash.usaItem(tm, 0));
+			addEvent(trash.trocaPokemon(tm, 3));
+			addEvent(trash.fazAtaque(tm, 4, ash));
+			addEvent(trash.usaItem(tm, 2));
+			addEvent(ash.fazAtaque(tm, 3, trash));
+			organizaEventSet();	
 		}
 		public String description() {
 			return("Restarting system");
 		}
+	}
+	public void organizaEventSet(){
+		Event e;
+		Event aux;
+		boolean trocou = true;
+		int jogadorAtivo;
+		aux = es.getNext();
+		while(trocou){	
+			trocou = false;
+			while ((e = es.getNext()) != null){
+				jogadorAtivo = (aux.getPrio())/10;
+				if((jogadorAtivo == ((e.getPrio())/10))){
+					if(aux.getPrio() > e.getPrio())
+						es.exchange()
+						trocou = true;
+				}
+				aux = e;
+			}
+			if(trocou){
+				es.reset();
+			}
+		}
+		es.reset();
 	}
 	
 	
