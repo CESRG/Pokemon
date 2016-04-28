@@ -4,17 +4,17 @@ Mudar "privacidade" de tudo, não deixar mais público que o nescessário;
 
 Revisar espaçamento, estilo e tabluação;
 
-#Fazer Fugir();
+(feito)Fazer Fugir();
 
 Colocar um Electrode que manda um ataque suicída e mata os dois;
 
-Adicionar à classe do treinador, o evento público IniciarTurno();
+(resolvido)Adicionar à classe do treinador, o evento público IniciarTurno();
 
-#Fazer o fim da luta;
+(feito)Fazer o fim da luta;
 
-Reformar arquivo Events para implementar as prioridades;
+(feito)Reformar arquivo Events para implementar as prioridades;
 
-#Mudar o nome de getState();
+(feito)Mudar o nome de getState();
 
 Preparar o terreno para atacar com tipos.
 Mudar recebeDano();
