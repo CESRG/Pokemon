@@ -1,43 +1,62 @@
+package pokemonTypes;
+import controller.Event;
+
 abstract public class Pokemon {
+	
 	private String nomePokemon;
 	private int hp;
+	private String tipo;
 	private boolean acordado = true;
 	private AtaquePokemon[] atqs = new AtaquePokemon[4];
+	
 	public AtaquePokemon EscolheAtaque(int i) {
 		return atqs[i];
 	}
 	public int getHP() {
 		return hp;
 	}
-	public void recebeDano(int dmg) {
-		hp -= dmg;
+	public void recebeDano(int dmg, String tipoOponente) {
+		int multiplicador = 1;
+		int dano;
+		
+		dano = dmg*multiplicador;
+		hp -= dano;
+		System.out.println(nomePokemon + " perdeu " + dano + " de vida!");
+		
 		if (hp <= 0) {
 			hp = 0;
 			acordado = false;
+			System.out.println(nomePokemon + " desmaiou!");
 		}
 	}
-	public boolean getState() {
+	public boolean getAcordado() {
 		return acordado;
 	}
 	public String getNome() {
 		return nomePokemon;
 	}
-	public void recebeCura() {
-		hp += 50; //Um valor qualquer
+	public void recebeCura(int heal) {
+		hp += heal;
 	}
+	
+	
 	public class AtaquePokemon extends Event {
+		
 		private int dano;
-		private String nome;
+		private String nomeAtaque;
+		
 		public AtaquePokemon(String nome, int dano,long eventTime) {
 			super(eventTime);
 			this.dano = dano;
-			this.nome = nome;
+			nomeAtaque = nome;
 		}
+		
+		public void action() {}
 		public void action(Pokemon alvo) {
-			alvo.recebeDano(dano);
+			alvo.recebeDano(dano, tipo);
 		}
 		public String description() {
-			return (nomePokemon + " usou " + nome + " e causou " + dano + " de dano.");
+			return (nomePokemon + " usou " + nomeAtaque + "!");
 		}
 	}
 }

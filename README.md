@@ -2,24 +2,24 @@
 
 Mudar "privacidade" de tudo, não deixar mais público que o nescessário;
 
-Revisar espaçamento, estilo e tabluação;
+[CHECK] Revisar espaçamento, estilo e tabluação;
 
-Fazer Fugir();
+[CHECK] Fazer Fugir();
 
 Colocar um Electrode que manda um ataque suicída e mata os dois;
 
 Adicionar à classe do treinador, o evento público IniciarTurno();
 
-Fazer o fim da luta;
+[CHECK] Fazer o fim da luta;
 
 Reformar arquivo Events para implementar as prioridades;
 
-Mudar o nome de getState();
+[CHECK] Mudar o nome de getState();
 
-Preparar o terreno para atacar com tipos.
+[CHECK] Preparar o terreno para atacar com tipos.
 Mudar recebeDano();
 
-Revisar trocarPokemon(), pois não se pode colocar um pokemon desmaiado pra lutar;
+[CHECK] Revisar trocarPokemon(), pois não se pode colocar um pokemon desmaiado pra lutar;
 
 Criar classes individuais para cada espécie de Pokémon.
 Criar classes abstratas de tipos específicas de Pokemons (criar classe PokemonElétrico(), por exemplo);
