@@ -18,7 +18,7 @@ public class FightControls extends Controller {
 			pokemons = args;
 			atual = pokemons[0];
 			indiceAtual = 0;
-			this.nome = nome;
+			nomeTreinador = nome;
 			this.ordemAtaque = ordemAtaque;
 		}
 		
@@ -51,7 +51,7 @@ public class FightControls extends Controller {
 			
 			public Fugir(long eventTime) {
 				super(eventTime);
-				priority = 1+ (ordemAtaque * 10);
+				priority = 1 + ordemAtaque*10;
 			}
 			
 			public void action() {
@@ -72,15 +72,13 @@ public class FightControls extends Controller {
 			
 			public TrocarPokemon(long eventTime, int escolhido) {
 				super(eventTime);
-				priority=2+(ordemAtaque*10);
+				priority = 2 + ordemAtaque*10;
 				i = escolhido;
 			}
 			
 			public void action() {
 				if (pokemons[i].getAcordado()) {
-					pokemons[indiceAtual] = atual; // é preciso fazer assim pois os ataques são feitos 
-									//ao atual e o dano recebido por ele não seria 
-									//registrado de outra maneira.
+					pokemons[indiceAtual] = atual;
 					atual = pokemons[i];
 					indiceAtual = i;
 				}
@@ -110,7 +108,7 @@ public class FightControls extends Controller {
 				super(eventTime);
 				i = escolhido;
 				p = pokemons[i];
-				priority=3+(ordemAtaque*10);
+				priority= 3 + ordemAtaque*10;
 			}
 			
 			public void action() {
@@ -156,8 +154,7 @@ public class FightControls extends Controller {
 					int iAcordado = alvo.achaPokemonAcordado();
 					if (iAcordado >= 0) {
 						alvo.trocaPokemon(System.currentTimeMillis(),
-										  iAcordado).action();//necessário para que a 
-										  		       //ação ocorra imediatamente
+										  iAcordado).action();
 					}
 					else {
 						terminate();
@@ -178,8 +175,12 @@ public class FightControls extends Controller {
 		
 		public void action() {
 			long tm = System.currentTimeMillis();
-			Treinador ash = new Treinador({new Pikachu(), new Charizard(), new Squirtle(), new Magikarp()}, "Ash",1);
-			Treinador trash = new Treinador({new Wombat(), new Diglet(), new Bulbasaur(), new Snorlax()}, "Trash",2);
+			Treinador ash = new Treinador({new Pikachu(), 
+				new Charizard(), new Squirtle(), new Magikarp()}, 
+				"Ash",1);
+			Treinador trash = new Treinador({new Wombat(),
+				new Diglet(), new Bulbasaur(), new Snorlax()}, 
+				"Trash",2);
 			addEvent(ash.fazAtaque(tm, 1, trash));
 			addEvent(ash.usaItem(tm, 0));
 			addEvent(trash.trocaPokemon(tm, 3));
@@ -204,7 +205,7 @@ public class FightControls extends Controller {
 				jogadorAtivo = (aux.getPrio())/10;
 				if((jogadorAtivo == ((e.getPrio())/10))){
 					if(aux.getPrio() > e.getPrio())
-						es.exchange()
+						es.exchange();
 						trocou = true;
 				}
 				aux = e;

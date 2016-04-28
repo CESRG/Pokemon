@@ -3,7 +3,7 @@ package controller;
 abstract public class Event {
 	
 	private long evtTime;
-	private static int priority;
+	protected int priority;
 	
 	public Event(long eventTime) {
 		evtTime = eventTime;
