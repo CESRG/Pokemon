@@ -19,16 +19,19 @@ abstract public class Event {
 }
 
 class EventSet {
+	
 	private Event[] events = new Event[100];
 	private	int	index = 0;
 	private	int	next = 0;
+	private boolean	looped = false;
+	
 	public void add(Event e) {
 		if (index >= events.length)
 			return;
 		events[index++] = e;
 	}
+	
 	public Event getNext() {
-		boolean	looped = false;
 		int start = next;
 		do {
 			next = (next + 1) % events.length;
@@ -45,16 +48,16 @@ class EventSet {
 	public Event getCurrent() {
 		return events[next];
 	}
-/*
- *	 	public void exchange(){
- *		Event aux;
- *		aux = events[(next-1)];
- *		events[(next-1)]= events[next];
- *		events[next]=aux;
- *	}
- *	public void reset(){
- *		next = 0;
- *		looped = false;
- *	}
- */
+
+ 	 public void exchange(){
+ 		Event aux;
+ 		aux = events[(next-1)];
+ 		events[(next-1)]= events[next];
+ 		events[next]=aux;
+ 	}
+ 	public void reset(){
+ 		next = 0;
+ 		looped = false;
+ 	}
+ 
 }
