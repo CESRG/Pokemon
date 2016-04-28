@@ -19,9 +19,9 @@ public class FightControls extends Controller {
 		public int getIndiceAtual() {
 			return indiceAtual;
 		}
-		public int achaPokemonAcordado(){
-			for(int i = 0; i<6 ; i++){
-				if(pokemons[i].acordado){
+		public int achaPokemonAcordado() {
+			for (int i = 0; i < 6 ; i++) {
+				if (pokemons[i].acordado()) {
 					return i;
 				}
 			}
@@ -57,24 +57,27 @@ public class FightControls extends Controller {
 				i = escolhido;
 			}
 			public void action() {
-				if(pokemons[i].getState()) {
+				if(pokemons[i].acordado()) {
 					pokemons[indiceAtual] = atual;
 					atual = pokemons[i];
 					indiceAtual = i;
 				}
-				else{return};
+				else{return;}
 			}
 			public String description() {
-				if(pokemons[i].getState()) {
-					return (nome + " trocou de pokemon, " + atual.getNome() + " está lutando agora.");
+				if(pokemons[i].acordado()) {
+					return (nome + " trocou de pokemon, " + atual.getNome()
+					+ " está lutando agora.");
 				}
 				else{
-					return (nome + " tentou trocar o pokemon ativo, mas isso não foi possível pois o pokemon escolhido está nocauteado");
+					return (nome + " tentou trocar o pokemon ativo, "
+							+ "mas isso não foi possível pois o "
+							+ "pokemon escolhido está nocauteado.");
 				}
 			}
 		}
 		public UsarItem usaItem(long eventTime, int escolhido) {
-			return (new UsarItem(long eventTime, int escolhido));
+			return (new UsarItem(eventTime, escolhido));
 		}
 		private class UsarItem extends Event {
 			private int i;
@@ -90,49 +93,63 @@ public class FightControls extends Controller {
 				}
 			}
 			public String description() {
-				return (pokemons[i].getNome() + " recebeu uma cura e está com " + pokemons[i].getHP() + " de vida.")
+				return (pokemons[i].getNome() + 
+						" recebeu uma cura e está com " 
+						+ pokemons[i].getHP() + " de vida.");
 			}
 		}
 		public Ataque fazAtaque(long eventTime, int n, Treinador alvo) {
-			return (new Ataque(long eventTime, int n, Treinador alvo));
+			return (new Ataque(eventTime, n, alvo));
 		}
 		private class Ataque extends Event {
 			private int n;
 			private Treinador alvo;
-			private int indicePokemonAtacado;
+			private Pokemon pokemonAlvo;
+			String ret;
 			public Ataque(long eventTime, int n, Treinador alvo) {
 				super(eventTime);
 				priority=4+(ordemAtaque*10);
 				this.n = n;
 				this.alvo = alvo;
-				indicePokemonAtacado=alvo.getIndiceAtual();
+				pokemonAlvo = alvo.getAtual();
 			}
 			public void action() {
-				atual.EscolheAtaque(n).action(alvo.getAtual());
-				if (!alvo.getAtual().acordado() && alvo.achaPokemonAcordado()>=0) {
-					(alvo.trocaPokemon(tm, (alvo.achaPokemonAcordado()).action();
-				}
-				if(!alvo.getAtual().acordado() && alvo.achaPokemonAcordado()<0){
-					terminate();
+				atual.EscolheAtaque(n).action(pokemonAlvo);
+				if (!pokemonAlvo.acordado()) {
+					int iAcordado = alvo.achaPokemonAcordado();
+					if (iAcordado >= 0) {
+						alvo.trocaPokemon(System.currentTimeMillis(),
+										  iAcordado);
+					}
+					else {
+						terminate();
+					}
 				}
 			}
 			public String description() {
-				return (atual.EscolheAtaque(n).description());
-				if (!alvo.getAtual().acordado() && alvo.achaPokemonAcordado()>=0) {
-					return (atual.EscolheAtaque(n).description() + "\n" + alvo.getPokemon(indicePokemonAtacado).getNome()+" foi nocauteado e " + alvo.getAtual().getNome() + " o substituiu.");
+				ret = (atual.EscolheAtaque(n).description());
+				if (pokemonAlvo.acordado()) {
+					return ret;
 				}
-				if(!alvo.getAtual().acordado() && alvo.achaPokemonAcordado()<0){
-					return(atual.EscolheAtaque(n).description() + "\n" + "Todos os pokemons de "+ nome + " foram nocauteados e a luta acabou.");
+				else {
+					if (alvo.achaPokemonAcordado() >= 0) {
+						return (ret + "\n" + pokemonAlvo.getNome() + 
+								" foi nocauteado e " +
+								alvo.getAtual().getNome() + " o substituiu.");
+					}
+					else {
+						return (ret + "\n" + "Todos os pokemons de " + nome + 
+							" foram nocauteados e a luta acabou.");
+					}
 				}
 			}
-		}
 		
-	}
-	public void terminate(){
-		while ((e = es.getNext()) != null) {
-			es.removeCurrent();
 		}
-	}
+		public void terminate(){
+			while ((e = es.getNext()) != null) {
+				es.removeCurrent();
+			}
+		}
 	private class Restart extends Event {
 		public Restart(long eventTime) {
 			super(eventTime);
@@ -141,13 +158,12 @@ public class FightControls extends Controller {
 			long tm = System.currentTimeMillis();
 			Treinador ash = new Treinador({new Pikachu(), new Charizard(), new Squirtle(), new Magikarp()}, "Ash",1);
 			Treinador trash = new Treinador({new Wombat(), new Diglet(), new Bulbasaur(), new Snorlax()}, "Trash",2);
-			addEvent(ash.fazAtaque(tm, 1, trash);
-			addEvent(ash.usaItem(tm, 0);
-			addEvent(trash.trocaPokemon(tm, 3);
-			addEvent(trash.fazAtaque(tm, 4, ash);
-			addEvent(trash.usaItem(tm, 2);
-			addEvent(ash.fazAtaque(tm, 3, trash);
-			addEvent(trash.)
+			addEvent(ash.fazAtaque(tm, 1, trash));
+			addEvent(ash.usaItem(tm, 0));
+			addEvent(trash.trocaPokemon(tm, 3));
+			addEvent(trash.fazAtaque(tm, 4, ash));
+			addEvent(trash.usaItem(tm, 2));
+			addEvent(ash.fazAtaque(tm, 3, trash));
 			organizaEventSet();
 		}
 		public String description() {
