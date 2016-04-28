@@ -19,7 +19,7 @@ Colocar um Electrode que manda um ataque suicída e mata os dois;
 Preparar o terreno para atacar com tipos.
 Mudar recebeDano();
 
-Revisar trocarPokemon(), pois não se pode colocar um pokemon desmaiado pra lutar;
+(feito)Revisar trocarPokemon(), pois não se pode colocar um pokemon desmaiado pra lutar;
 
 Criar classes individuais para cada espécie de Pokémon.
 Criar classes abstratas de tipos específicas de Pokemons (criar classe PokemonElétrico(), por exemplo);
