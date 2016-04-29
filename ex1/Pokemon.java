@@ -1,14 +1,12 @@
-package pokemonTypes;
+package ex1;
 
-import controller.Event;
-
-abstract public class Pokemon {
+abstract class Pokemon {
 
 	private String nomePokemon;
-	private int hp;
-	private String tipo;
-	private int numTipo;
 	private boolean acordado = true;
+	private int hp;
+	private int numTipo;
+	private String tipo;
 	private AtaquePokemon[] atqs = new AtaquePokemon[4];
 	private int[][] fraquezas = {
 			{ 2, 2, 2, 2, 2, 1, 2, 0, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2 },
@@ -29,6 +27,7 @@ abstract public class Pokemon {
 			{ 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 4, 2, 0 },
 			{ 2, 1, 2, 2, 2, 2, 2, 4, 2, 2, 2, 2, 2, 4, 2, 2, 1, 1 },
 			{ 2, 4, 2, 1, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 4, 4, 2 } };
+	protected static AtaquePokemon[] atqsPossiveis;
 
 	public AtaquePokemon EscolheAtaque(int i) {
 		return atqs[i];
@@ -87,4 +86,9 @@ abstract public class Pokemon {
 			return (nomePokemon + " usou " + nomeAtaque + "!");
 		}
 	}
+}
+
+abstract class PokemonEletrico extends Pokemon {
+	atqsPossiveis[1] = new AtaquePokemon("ThunderBolt", 90, 0);
+	
 }

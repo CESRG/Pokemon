@@ -1,4 +1,4 @@
-package controller;
+package ex1;
 
 abstract public class Event {
 

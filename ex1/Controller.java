@@ -1,4 +1,4 @@
-package controller;
+package ex1;
 
 public class Controller {
 

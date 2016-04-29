@@ -1,8 +1,4 @@
-package treinador;
-
-import controller.Controller;
-import controller.Event;
-import pokemonTypes.Pokemon;
+package ex1;
 
 public class FightControls extends Controller {
 
