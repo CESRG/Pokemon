@@ -80,8 +80,8 @@ abstract public class Pokemon {
 		}
 
 		
-		public void action(Pokemon alvo, int tipoAtacante) {
-			alvo.recebeDano(dano, tipoAtacante); 
+		public void action(Pokemon alvo) {
+			alvo.recebeDano(dano, alvo.getTipo()); 
 		}
 
 		public String description() {
