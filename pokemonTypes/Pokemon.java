@@ -38,8 +38,8 @@ abstract public class Pokemon {
 		return hp;
 	}
 
-	public void recebeDano(int dmg, String tipoOponente) {
-		int multiplicador = 1;
+	public void recebeDano(int dmg, int numTipoOponente) {
+		int multiplicador = fraquezas[numTipoOponente][numTipo];
 		int dano;
 
 		dano = dmg * multiplicador;
@@ -51,6 +51,9 @@ abstract public class Pokemon {
 			acordado = false;
 			System.out.println(nomePokemon + " desmaiou!");
 		}
+	}
+	public int getTipo(){
+		return numTipo;
 	}
 
 	public boolean getAcordado() {
@@ -76,11 +79,9 @@ abstract public class Pokemon {
 			nomeAtaque = nome;
 		}
 
-		public void action() {
-		}
-
-		public void action(Pokemon alvo) {
-			alvo.recebeDano(dano, tipo);
+		
+		public void action(Pokemon alvo, int tipoAtacante) {
+			alvo.recebeDano(dano, tipoAtacante); 
 		}
 
 		public String description() {
@@ -88,3 +89,22 @@ abstract public class Pokemon {
 		}
 	}
 }
+// tipos: 1-normal;
+//2-luta
+//3-voador
+//4-veneno
+//5-terra
+//6-pedra
+//7-inseto
+//8-fantasma
+//9-metal
+//10-fogo
+//11-água
+//12-planta
+//13-elétrico
+//14-psíquico
+//15-gelo
+//16-dragão
+//17-obscuro
+//18-fada
+
