@@ -199,29 +199,29 @@ public class FightControls extends Controller {
 		}
 	}
 
-	public void organizaEventSet() {
-		Event e;
-		Event aux;
-		boolean trocou = true;
-		int jogadorAtivo;
-		aux = getNext();
-		while (trocou) {
-			trocou = false;
-			while ((e = getNext()) != null) {
-				jogadorAtivo = aux.getPrio() / 10;
-				if (jogadorAtivo == e.getPrio() / 10) {
-					if (aux.getPrio() > e.getPrio())
-						trocaEvent();
-					trocou = true;
-				}
-				aux = e;
-			}
-			if (trocou) {
-				resetEvent();
-			}
-		}
-		resetEvent();
-	}
+	// public void organizaEventSet() {
+	// Event e;
+	// Event aux;
+	// boolean trocou = true;
+	// int jogadorAtivo;
+	// aux = getNext();
+	// while (trocou) {
+	// trocou = false;
+	// while ((e = getNext()) != null) {
+	// jogadorAtivo = aux.getPrio() / 10;
+	// if (jogadorAtivo == e.getPrio() / 10) {
+	// if (aux.getPrio() > e.getPrio())
+	// trocaEvent();
+	// trocou = true;
+	// }
+	// aux = e;
+	// }
+	// if (trocou) {
+	// resetEvent();
+	// }
+	// }
+	// resetEvent();
+	// }
 
 	public static void main(String[] args) {
 

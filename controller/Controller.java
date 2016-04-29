@@ -31,11 +31,35 @@ public class Controller {
 		addEvent(e);
 	}
 
-	public void trocaEvent() {
+	private void resetEvent() {
+		es.reset();
+	}
+
+	private void trocaEvent() {
 		es.troca();
 	}
 
-	public void resetEvent() {
-		es.reset();
+	protected void organizaEventSet() {
+		Event e;
+		Event aux;
+		boolean trocou = true;
+		int jogadorAtivo;
+		aux = getNext();
+		while (trocou) {
+			trocou = false;
+			while ((e = getNext()) != null) {
+				jogadorAtivo = aux.getPrio() / 10;
+				if (jogadorAtivo == e.getPrio() / 10) {
+					if (aux.getPrio() > e.getPrio())
+						trocaEvent();
+					trocou = true;
+				}
+				aux = e;
+			}
+			if (trocou) {
+				resetEvent();
+			}
+		}
+		resetEvent();
 	}
 }
