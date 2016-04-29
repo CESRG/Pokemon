@@ -87,8 +87,22 @@ abstract class Pokemon {
 		}
 	}
 }
+// tipos: 1-normal;
+//2-luta
+//3-voador
+//4-veneno
+//5-terra
+//6-pedra
+//7-inseto
+//8-fantasma
+//9-metal
+//10-fogo
+//11-água
+//12-planta
+//13-elétrico
+//14-psíquico
+//15-gelo
+//16-dragão
+//17-obscuro
+//18-fada
 
-abstract class PokemonEletrico extends Pokemon {
-	atqsPossiveis[1] = new AtaquePokemon("ThunderBolt", 90, 0);
-	
-}
