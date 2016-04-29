@@ -154,7 +154,7 @@ public class FightControls extends Controller {
 			}
 
 			public void action() {
-				atual.EscolheAtaque(n).action(pokemonAlvo);
+				atual.EscolheAtaque(n).action(pokemonAlvo, atual.getTipo());
 				if (!pokemonAlvo.getAcordado()) {
 					int iAcordado = alvo.achaPokemonAcordado();
 					if (iAcordado >= 0) {
